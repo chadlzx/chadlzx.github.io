@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrated Value Guidance · Zhixuan Liu</title>
+  <meta name="description" content="Inference-time language model alignment through token-level implicit values and chunk-level explicit guidance.">
+  <link rel="canonical" href="https://chadlzx.github.io/research/ivg.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="site-name" href="../index.html">Zhixuan Liu</a>
+      <nav aria-label="Primary navigation">
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../cv/Zhixuan_Liu_CV.pdf">CV</a>
+      </nav>
+    </header>
+
+    <article class="project-content">
+      <header class="project-header">
+        <a class="back-link" href="../index.html#research">← Selected research</a>
+        <h1>Inference-Time Language Model Alignment via Integrated Value Guidance</h1>
+        <p class="meta">Findings of EMNLP 2024</p>
+      </header>
+
+      <section>
+        <h2>Research question</h2>
+        <p>How can a frozen language model be aligned at inference time using preference signals from smaller models, without fine-tuning the target model?</p>
+      </section>
+
+      <section>
+        <h2>Core method</h2>
+        <p>IVG integrates two complementary signals learned from the same preference data: a DPO-derived implicit value adjusts the token distribution at every decoding step, while an explicit prefix value scores partial responses during chunk-level beam search. The combination provides fine-grained local steering and longer-horizon candidate selection.</p>
+      </section>
+
+      <section>
+        <h2>Key results</h2>
+        <ul>
+          <li>Improved Mistral-7B-Instruct-v0.2 on AlpacaEval 2.0 from <strong>19.51%</strong> to <strong>26.51%</strong> length-controlled win rate.</li>
+          <li>Improved Mixtral-8×7B-Instruct-v0.1 from <strong>25.58%</strong> to <strong>33.75%</strong>.</li>
+          <li>Used 7B-scale value models to guide frozen targets up to Llama-2-70B and Mixtral-8×7B.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Paper and code</h2>
+        <p class="item-links"><a href="https://aclanthology.org/2024.findings-emnlp.242/">Paper</a><a href="https://arxiv.org/abs/2409.17819">arXiv</a><a href="https://github.com/AI45Lab/ivg">Code</a></p>
+      </section>
+    </article>
+
+    <footer><span>© 2026 Zhixuan Liu</span><a href="../index.html">Home</a></footer>
+  </main>
+</body>
+</html>

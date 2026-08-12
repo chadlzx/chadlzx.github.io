@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subliminal Learning as Trait-Direction Drift · Zhixuan Liu</title>
+  <meta name="description" content="A mechanism and targeted control method for subliminal trait transfer under SFT distillation.">
+  <link rel="canonical" href="https://chadlzx.github.io/research/subliminal-learning.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="site-name" href="../index.html">Zhixuan Liu</a>
+      <nav aria-label="Primary navigation">
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../cv/Zhixuan_Liu_CV.pdf">CV</a>
+      </nav>
+    </header>
+
+    <article class="project-content">
+      <header class="project-header">
+        <a class="back-link" href="../index.html#research">← Selected research</a>
+        <h1>Subliminal Learning as Trait-Direction Drift</h1>
+      </header>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Why can a teacher transmit a latent behavioral trait through semantically unrelated SFT data, and how can that transfer be suppressed without degrading the intended distillation task?</p>
+      </section>
+
+      <section>
+        <h2>Core method</h2>
+        <p>We explain subliminal learning as cumulative drift along a trait direction. Under a low-rank logit-linear approximation, samples with a larger teacher preference gap induce stronger trait-aligned SFT updates. A calibrated trait probe then defines a corridor in representation space, and probe-space corridor regularization constrains the distillation trajectory before the drift becomes observable behavior.</p>
+      </section>
+
+      <section>
+        <h2>Key results</h2>
+        <ul>
+          <li>Reduced malicious-response transfer from <strong>29.55%</strong> to <strong>6.47%</strong>.</li>
+          <li>Consistently suppressed transfer across multiple animal-preference settings with Qwen-7B models.</li>
+          <li>Preserved performance on the intended distillation task while targeting the trait direction.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Paper and code</h2>
+        <p class="availability-note">This work is ongoing.</p>
+      </section>
+    </article>
+
+    <footer><span>© 2026 Zhixuan Liu</span><a href="../index.html">Home</a></footer>
+  </main>
+</body>
+</html>

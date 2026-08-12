@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Decoupled Contrastive Decoding · Zhixuan Liu</title>
+  <meta name="description" content="Decoupled Contrastive Decoding via Expert-Aligned Drafting for efficient contrastive generation.">
+  <link rel="canonical" href="https://chadlzx.github.io/research/dcd.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="site-name" href="../index.html">Zhixuan Liu</a>
+      <nav aria-label="Primary navigation">
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../cv/Zhixuan_Liu_CV.pdf">CV</a>
+      </nav>
+    </header>
+
+    <article class="project-content">
+      <header class="project-header">
+        <a class="back-link" href="../index.html#research">← Selected research</a>
+        <h1>Decoupled Contrastive Decoding via Expert-Aligned Drafting</h1>
+      </header>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Can contrastive decoding retain its target distribution and quality while removing the serial amateur-model proposal pass that limits decoding speed?</p>
+      </section>
+
+      <section>
+        <h2>Core method</h2>
+        <p>DCD uses a lightweight EAGLE3 drafter aligned with the expert to generate speculative candidates, moving the amateur model from the serial proposal path into parallel verification. Verification still follows the original contrastive distribution, so the proposer changes acceptance and efficiency without changing the decoding target.</p>
+      </section>
+
+      <section>
+        <h2>Key results</h2>
+        <ul>
+          <li>Achieved <strong>1.65–1.95×</strong> average greedy speedups over vanilla contrastive decoding across the main 8B settings.</li>
+          <li>Reduced per-step proposal latency on MMLU from roughly <strong>3.5–7.4 ms</strong> to about <strong>0.6 ms</strong>.</li>
+          <li>Reached <strong>2.02×</strong> and <strong>1.96×</strong> average speedups in the 70B setting at α = 0.1 and 0.5.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Paper and code</h2>
+        <p class="availability-note">This work is ongoing.</p>
+      </section>
+    </article>
+
+    <footer><span>© 2026 Zhixuan Liu</span><a href="../index.html">Home</a></footer>
+  </main>
+</body>
+</html>
