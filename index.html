@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zhixuan Liu (柳志轩)</title>
+  <meta name="description" content="Zhixuan Liu's research homepage: safe distillation, inference-time alignment, efficient decoding, and search-based generation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chadlzx.github.io/">
+  <meta property="og:title" content="Zhixuan Liu (柳志轩)">
+  <meta property="og:description" content="LLM training, alignment, decoding, and search.">
+  <meta property="og:image" content="https://chadlzx.github.io/og.png">
+  <meta property="og:image:width" content="1536">
+  <meta property="og:image:height" content="1024">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zhixuan Liu (柳志轩)">
+  <meta name="twitter:description" content="LLM training, alignment, decoding, and search.">
+  <meta name="twitter:image" content="https://chadlzx.github.io/og.png">
+  <link rel="canonical" href="https://chadlzx.github.io/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="site-name" href="#top">Zhixuan Liu</a>
+      <nav aria-label="Primary navigation">
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#experience">Experience</a>
+        <a href="cv/Zhixuan_Liu_CV.pdf">CV</a>
+      </nav>
+    </header>
+
+    <section class="intro" id="top">
+      <h1>Zhixuan Liu <span>柳志轩</span></h1>
+      <p class="role">Ph.D. Candidate in Computer Science, Shanghai Jiao Tong University</p>
+      <p>I work on large language model training and inference, with a focus on safe distillation, inference-time alignment, efficient decoding, and search-based generation. I am also a research intern at Shanghai Artificial Intelligence Laboratory.</p>
+      <p>My research often starts from a question about model behavior and continues through method design, systems implementation, and large-model evaluation.</p>
+      <div class="profile-links">
+        <a href="mailto:lzx993124494@sjtu.edu.cn">Email</a>
+        <a href="https://scholar.google.com/citations?user=896Q3cwAAAAJ">Google Scholar</a>
+        <a href="https://github.com/chadlzx">GitHub</a>
+        <a href="https://openreview.net/profile?id=%7EZhixuan_Liu2">OpenReview</a>
+        <a href="cv/Zhixuan_Liu_CV.pdf">CV (English)</a>
+        <a href="cv/柳志轩_中文简历.pdf">简历（中文）</a>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2>Selected research</h2>
+      <div class="selected-list">
+        <article class="selected-item">
+          <h3>Subliminal Learning as Trait-Direction Drift</h3>
+          <p class="meta">NeurIPS 2026 Submission · First author</p>
+          <p>I independently led this work from problem formulation through writing. We explain latent-trait transfer under SFT distillation and reduce malicious-response transfer from 29.55% to 6.47% with probe-space corridor regularization.</p>
+        </article>
+        <article class="selected-item">
+          <h3>Decoupled Contrastive Decoding via Expert-Aligned Drafting</h3>
+          <p class="meta">EMNLP 2026 Submission · First author</p>
+          <p>DCD removes the amateur model from the serial proposal path while preserving the original contrastive-decoding distribution, reaching 1.65–1.95× average speedups in 8B settings and about 2× at 70B.</p>
+        </article>
+        <article class="selected-item">
+          <h3>Inference-Time Language Model Alignment via Integrated Value Guidance</h3>
+          <p class="meta">EMNLP 2024 Findings · Co-first author, first-listed</p>
+          <p>IVG combines token-level implicit values with chunk-level search to align frozen target LLMs. I led the problem formulation, method, implementation, experiments, and writing.</p>
+          <p class="item-links"><a href="https://aclanthology.org/2024.findings-emnlp.242/">paper</a><a href="https://github.com/AI45Lab/ivg">code</a></p>
+        </article>
+        <article class="selected-item">
+          <h3>Weak-to-Strong Search</h3>
+          <p class="meta">NeurIPS 2024 · Second author / Core Contributor</p>
+          <p>We use small-model preference differences as dense rewards and values for chunk-level search over stronger frozen LLMs, including cross-tokenizer and black-box settings.</p>
+          <p class="item-links"><a href="https://arxiv.org/abs/2405.19262">paper</a><a href="https://github.com/ZHZisZZ/weak-to-strong-search">code</a></p>
+        </article>
+        <article class="selected-item">
+          <h3>A Neural-Symbolic Approach to Natural Language Understanding</h3>
+          <p class="meta">EMNLP 2022 Findings · First author</p>
+          <p>A Mixture-of-Experts processor combines neural prediction with program generation and symbolic execution for numerical question answering and natural language inference.</p>
+          <p class="item-links"><a href="https://aclanthology.org/2022.findings-emnlp.158/">paper</a><a href="https://github.com/chadlzx/NSP_QA">code</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="publications">
+      <div class="section-title-row">
+        <h2>Publications and preprints</h2>
+        <a href="https://scholar.google.com/citations?user=896Q3cwAAAAJ">Google Scholar</a>
+      </div>
+      <p class="section-note">Selected publications and active submissions, including both lead-author and collaborative work. My name is shown in bold.</p>
+      <ol class="publication-list">
+        <li><span class="year">2026</span><div><h3>Subliminal Learning as Trait-Direction Drift: A Mechanism and Targeted Control under SFT Distillation</h3><p class="authors"><strong>Zhixuan Liu</strong>, Zhichen Dong, Yuyu Fan, Xiangtian Li, Chao Yang</p><p class="venue-line"><em>NeurIPS 2026 Submission</em> · First author; independently led the work</p></div></li>
+        <li><span class="year">2026</span><div><h3>Decoupled Contrastive Decoding via Expert-Aligned Drafting</h3><p class="authors"><strong>Zhixuan Liu</strong>, Zhichen Dong, Yuanfu Wang, Chao Yang</p><p class="venue-line"><em>EMNLP 2026 Submission</em> · First author; independently led the work</p></div></li>
+        <li><span class="year">2026</span><div><h3>Scaling Model-Generated Distillation Data Can Make Latent Teacher Traits More Recoverable</h3><p class="authors">Zhichen Dong, <strong>Zhixuan Liu</strong>, Yuyu Fan, Xiangtian Li, Shuyang Zhang, Chao Yang</p><p class="venue-line"><em>ACL ARR 2026 August Submission</em> · Contributed to the research idea</p><p class="item-links"><a href="https://openreview.net/forum?id=3i7DiMy0Ke">paper</a></p></div></li>
+        <li><span class="year">2026</span><div><h3>Native Reasoning Models: Training Language Models to Reason on Unverifiable Data</h3><p class="authors">Yuanfu Wang, <strong>Zhixuan Liu</strong>, Xiangtian Li, Chaochao Lu, Chao Yang</p><p class="venue-line"><em>ICLR 2026 Poster</em> · Second author; contributed to the research idea</p><p class="item-links"><a href="https://openreview.net/forum?id=abAMONjBwb">paper</a></p></div></li>
+        <li><span class="year">2026</span><div><h3>Adaptive Prompt Optimization for Open-Ended Tasks: Uncertainty Preference as a Secondary Signal</h3><p class="authors">Shuyang Zhang, <strong>Zhixuan Liu</strong>, Zhichen Dong, Hao Zhang, Chaochao Lu, Chao Yang</p><p class="venue-line"><em>ACL 2026 Findings</em> · Second author; contributed to the research idea</p><p class="item-links"><a href="https://openreview.net/forum?id=uHODdtfEcs">paper</a></p></div></li>
+        <li><span class="year">2025</span><div><h3>SafeWork-R1: Coevolving Safety and Intelligence under the AI-45° Law</h3><p class="authors">SafeWork-R1 Team, <strong>Zhixuan Liu</strong></p><p class="venue-line"><em>arXiv 2025</em> · Contributed the inference-time alignment module in Section 4.1</p><p class="item-links"><a href="https://arxiv.org/abs/2507.18576">paper</a></p></div></li>
+        <li><span class="year">2025</span><div><h3>Emergent Response Planning in LLMs</h3><p class="authors">Zhichen Dong, Zhanhui Zhou, <strong>Zhixuan Liu</strong>, Chao Yang, Chaochao Lu</p><p class="venue-line"><em>ICML 2025 Poster</em> · Third author; contributed to the idea and experimental design</p><p class="item-links"><a href="https://openreview.net/forum?id=Ce79P8ULPY">paper</a></p></div></li>
+        <li><span class="year">2024</span><div><h3>Weak-to-Strong Search: Align Large Language Models via Searching over Small Language Models</h3><p class="authors">Zhanhui Zhou, <strong>Zhixuan Liu</strong>, Jie Liu, Zhichen Dong, Chao Yang, Yu Qiao</p><p class="venue-line"><em>NeurIPS 2024</em> · Second author / Core Contributor</p><p class="item-links"><a href="https://arxiv.org/abs/2405.19262">paper</a><a href="https://github.com/ZHZisZZ/weak-to-strong-search">code</a></p></div></li>
+        <li><span class="year">2024</span><div><h3>Inference-Time Language Model Alignment via Integrated Value Guidance</h3><p class="authors"><strong>Zhixuan Liu</strong>, Zhanhui Zhou, Yuanfu Wang, Chao Yang, Yu Qiao</p><p class="venue-line"><em>EMNLP 2024 Findings</em> · Co-first author, first-listed</p><p class="item-links"><a href="https://aclanthology.org/2024.findings-emnlp.242/">paper</a><a href="https://github.com/AI45Lab/ivg">code</a></p></div></li>
+        <li><span class="year">2022</span><div><h3>A Neural-Symbolic Approach to Natural Language Understanding</h3><p class="authors"><strong>Zhixuan Liu</strong>, Zihao Wang, Yuan Lin, Hang Li</p><p class="venue-line"><em>EMNLP 2022 Findings</em> · First author</p><p class="item-links"><a href="https://aclanthology.org/2022.findings-emnlp.158/">paper</a><a href="https://github.com/chadlzx/NSP_QA">code</a></p></div></li>
+      </ol>
+    </section>
+
+    <section id="experience">
+      <h2>Experience and education</h2>
+      <dl class="timeline">
+        <div><dt>2022–Present</dt><dd><strong>Shanghai Artificial Intelligence Laboratory</strong><span>Research Intern</span></dd></div>
+        <div><dt>2022–2027</dt><dd><strong>Shanghai Jiao Tong University</strong><span>Ph.D. Candidate in Computer Science (expected June 2027)</span></dd></div>
+        <div><dt>2020–2021</dt><dd><strong>ByteDance AI Lab</strong><span>Research Intern</span></dd></div>
+        <div><dt>2018–2022</dt><dd><strong>Shanghai Jiao Tong University</strong><span>B.Eng. in Computer Science, Zhiyuan College</span></dd></div>
+      </dl>
+    </section>
+
+    <footer><span>© 2026 Zhixuan Liu</span><a href="#top">Back to top</a></footer>
+  </main>
+</body>
+</html>
