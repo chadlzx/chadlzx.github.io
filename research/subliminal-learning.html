@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <main>
+  <main class="project-shell project-sl">
     <header class="site-header">
       <a class="site-name" href="../index.html">Zhixuan Liu</a>
       <nav aria-label="Primary navigation">
@@ -23,31 +23,78 @@
     <article class="project-content">
       <header class="project-header">
         <a class="back-link" href="../index.html#research">← Selected research</a>
+        <p class="project-kicker">Mechanistic understanding · Targeted control</p>
         <h1>Subliminal Learning as Trait-Direction Drift</h1>
+        <p class="project-lead">A mechanistic account of how latent traits cross an apparently unrelated SFT channel—and a targeted intervention that constrains the drift before it becomes behavior.</p>
+        <div class="project-topics" aria-label="Research topics">
+          <span>Safe distillation</span><span>Behavioral traits</span><span>Representation probes</span><span>SFT dynamics</span>
+        </div>
+        <nav class="project-toc" aria-label="On this page">
+          <a href="#question">Question</a><a href="#method">Method</a><a href="#results">Results</a><a href="#resources">Paper &amp; code</a>
+        </nav>
       </header>
 
-      <section>
-        <h2>Research question</h2>
-        <p>Why can a teacher transmit a latent behavioral trait through semantically unrelated SFT data, and how can that transfer be suppressed without degrading the intended distillation task?</p>
+      <section id="question" class="poster-section">
+        <div class="section-heading"><span>01</span><h2>Research question</h2></div>
+        <div class="question-grid">
+          <p class="question-statement">Why can a teacher transmit a latent behavioral trait through <em>semantically unrelated</em> SFT data?</p>
+          <aside class="poster-callout">
+            <span class="callout-label">Central tension</span>
+            <p>The training outputs do not mention the trait, yet the student can still inherit it. Surface semantics therefore cannot explain the transfer channel.</p>
+          </aside>
+        </div>
+        <div class="idea-grid">
+          <article><span class="idea-index">A</span><h3>Mechanism</h3><p>Identify the learning signal that survives inside unrelated teacher-generated data.</p></article>
+          <article><span class="idea-index">B</span><h3>Dynamics</h3><p>Explain how weak per-example signals accumulate into an observable behavioral shift.</p></article>
+          <article><span class="idea-index">C</span><h3>Control</h3><p>Suppress only the unwanted trait direction while preserving the intended SFT task.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Core method</h2>
-        <p>We explain subliminal learning as cumulative drift along a trait direction. Under a low-rank logit-linear approximation, samples with a larger teacher preference gap induce stronger trait-aligned SFT updates. A calibrated trait probe then defines a corridor in representation space, and probe-space corridor regularization constrains the distillation trajectory before the drift becomes observable behavior.</p>
+      <section id="method" class="poster-section">
+        <div class="section-heading"><span>02</span><h2>Core method</h2></div>
+        <div class="method-board">
+          <div class="board-title"><span>Mechanism</span><strong>Trait signals accumulate as directional drift</strong></div>
+          <div class="method-track method-track-four">
+            <article class="method-node"><span class="node-step">1</span><h3>Unrelated outputs</h3><p>The teacher generates data that is semantically disconnected from the latent trait.</p></article>
+            <article class="method-node"><span class="node-step">2</span><h3>Preference gap</h3><p>The outputs still carry a small teacher preference gap along the target trait.</p></article>
+            <article class="method-node"><span class="node-step">3</span><h3>SFT updates</h3><p>Larger gaps induce stronger trait-aligned parameter updates under a local approximation.</p></article>
+            <article class="method-node method-node-accent"><span class="node-step">4</span><h3>Trait drift</h3><p>Repeated updates accumulate until the hidden direction appears as student behavior.</p></article>
+          </div>
+          <div class="board-rule"><span>Key prediction</span><p>Examples with a larger teacher preference gap should produce stronger trait transfer.</p></div>
+        </div>
+
+        <div class="method-board control-board">
+          <div class="board-title"><span>Targeted control</span><strong>Probe-space corridor regularization</strong></div>
+          <div class="method-track method-track-three">
+            <article class="method-node"><span class="node-step">1</span><h3>Calibrate a probe</h3><p>Learn a readout that tracks movement along the unwanted trait direction.</p></article>
+            <article class="method-node method-node-accent"><span class="node-step">2</span><h3>Define a corridor</h3><p>Specify an allowed region around the safe representation trajectory.</p></article>
+            <article class="method-node"><span class="node-step">3</span><h3>Constrain drift</h3><p>Penalize SFT updates that leave the corridor while retaining task learning.</p></article>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2>Key results</h2>
-        <ul>
-          <li>Reduced malicious-response transfer from <strong>29.55%</strong> to <strong>6.47%</strong>.</li>
-          <li>Consistently suppressed transfer across multiple animal-preference settings with Qwen-7B models.</li>
-          <li>Preserved performance on the intended distillation task while targeting the trait direction.</li>
-        </ul>
+      <section id="results" class="poster-section">
+        <div class="section-heading"><span>03</span><h2>Key results</h2></div>
+        <div class="hero-result">
+          <div><span class="result-number">29.55%</span><span class="result-caption">standard SFT transfer</span></div>
+          <span class="result-arrow">→</span>
+          <div><span class="result-number result-number-accent">6.47%</span><span class="result-caption">with corridor regularization</span></div>
+          <div class="result-badge"><strong>78.1%</strong><span>relative reduction</span></div>
+        </div>
+        <div class="bar-comparison" aria-label="Malicious-response transfer comparison">
+          <div class="bar-row"><span>Standard SFT</span><div class="bar-track"><i style="--bar:100%"></i></div><strong>29.55</strong></div>
+          <div class="bar-row"><span>Ours</span><div class="bar-track"><i class="bar-accent" style="--bar:21.9%"></i></div><strong>6.47</strong></div>
+        </div>
+        <div class="evidence-grid">
+          <article><strong>Multiple traits</strong><p>Transfer is consistently suppressed across several animal-preference settings.</p></article>
+          <article><strong>Qwen-7B setting</strong><p>The intervention is evaluated on 7B-scale student models rather than toy classifiers.</p></article>
+          <article><strong>Task preservation</strong><p>The targeted constraint retains performance on the intended distillation objective.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Paper and code</h2>
-        <p class="availability-note">This work is ongoing.</p>
+      <section id="resources" class="poster-section resource-section">
+        <div class="section-heading"><span>04</span><h2>Paper and code</h2></div>
+        <div class="resource-panel"><div><strong>This work is ongoing.</strong><p>Public manuscript and code links will be added here when available.</p></div><span class="resource-status">Ongoing work</span></div>
       </section>
     </article>
 

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <main>
+  <main class="project-shell project-ivg">
     <header class="site-header">
       <a class="site-name" href="../index.html">Zhixuan Liu</a>
       <nav aria-label="Primary navigation">
@@ -23,32 +23,91 @@
     <article class="project-content">
       <header class="project-header">
         <a class="back-link" href="../index.html#research">← Selected research</a>
+        <p class="project-kicker">Inference-time alignment · Value-guided decoding</p>
         <h1>Inference-Time Language Model Alignment via Integrated Value Guidance</h1>
         <p class="meta">Findings of EMNLP 2024</p>
+        <p class="project-lead">IVG combines fine-grained token steering with longer-horizon candidate selection, using two complementary value functions learned from the same preference data.</p>
+        <div class="project-topics" aria-label="Research topics">
+          <span>Inference-time alignment</span><span>DPO</span><span>Prefix values</span><span>Beam search</span>
+        </div>
+        <nav class="project-toc" aria-label="On this page">
+          <a href="#question">Question</a><a href="#method">Method</a><a href="#results">Results</a><a href="#resources">Paper &amp; code</a>
+        </nav>
       </header>
 
-      <section>
-        <h2>Research question</h2>
-        <p>How can a frozen language model be aligned at inference time using preference signals from smaller models, without fine-tuning the target model?</p>
+      <section id="question" class="poster-section">
+        <div class="section-heading"><span>01</span><h2>Research question</h2></div>
+        <div class="question-grid">
+          <p class="question-statement">How can smaller preference models align a <em>frozen</em> target LLM at inference time—without updating its parameters?</p>
+          <aside class="poster-callout"><span class="callout-label">Granularity mismatch</span><p>Token-level signals are precise but myopic; sequence-level rewards see global quality but are difficult to apply during unfinished generation.</p></aside>
+        </div>
+        <div class="idea-grid">
+          <article><span class="idea-index">A</span><h3>Local control</h3><p>Adjust each next-token distribution with a dense preference signal.</p></article>
+          <article><span class="idea-index">B</span><h3>Long horizon</h3><p>Compare partial responses after a chunk of generation, not only one token.</p></article>
+          <article><span class="idea-index">C</span><h3>Frozen target</h3><p>Guide much larger target models without task-specific fine-tuning.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Core method</h2>
-        <p>IVG integrates two complementary signals learned from the same preference data: a DPO-derived implicit value adjusts the token distribution at every decoding step, while an explicit prefix value scores partial responses during chunk-level beam search. The combination provides fine-grained local steering and longer-horizon candidate selection.</p>
+      <section id="method" class="poster-section">
+        <div class="section-heading"><span>02</span><h2>Core method</h2></div>
+        <div class="method-board ivg-board">
+          <div class="board-title"><span>Integrated Value Guidance</span><strong>Two value functions, two decoding scales</strong></div>
+          <div class="ivg-source"><span>Shared supervision</span><strong>Preference dataset</strong><p>One source of human preference information</p></div>
+          <div class="ivg-branches">
+            <article class="ivg-branch">
+              <span class="branch-label">Implicit value</span>
+              <div class="branch-step"><small>Train</small><strong>DPO policy + reference</strong></div>
+              <span class="branch-arrow">↓</span>
+              <div class="branch-step"><small>Derive</small><strong>Token log-ratio</strong></div>
+              <span class="branch-arrow">↓</span>
+              <div class="branch-output"><strong>Token-wise guidance</strong><span>Fine-grained local steering at every step</span></div>
+            </article>
+            <article class="ivg-branch">
+              <span class="branch-label">Explicit value</span>
+              <div class="branch-step"><small>Train</small><strong>Sequence reward model</strong></div>
+              <span class="branch-arrow">↓</span>
+              <div class="branch-step"><small>Distill</small><strong>Prefix value scorer</strong></div>
+              <span class="branch-arrow">↓</span>
+              <div class="branch-output"><strong>Chunk-level ranking</strong><span>Longer-horizon selection across partial responses</span></div>
+            </article>
+          </div>
+          <div class="ivg-merge"><span>Integrate during decoding</span><strong>Sample locally → expand chunks → rank prefixes → retain top beams</strong><p>The target language model remains frozen throughout generation.</p></div>
+        </div>
+        <div class="implementation-grid">
+          <article><span>Training</span><h3>Shared preference data</h3><p>Both value functions are learned from the same comparisons but expose complementary signals.</p></article>
+          <article><span>Generation</span><h3>Multi-model KV cache</h3><p>Base, tuned/reference, and reward models maintain synchronized caches and beam states.</p></article>
+          <article><span>Trade-off</span><h3>Accuracy vs. compute</h3><p>Implicit guidance runs every token; explicit guidance scores only at chunk boundaries.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Key results</h2>
-        <ul>
-          <li>Improved Mistral-7B-Instruct-v0.2 on AlpacaEval 2.0 from <strong>19.51%</strong> to <strong>26.51%</strong> length-controlled win rate.</li>
-          <li>Improved Mixtral-8×7B-Instruct-v0.1 from <strong>25.58%</strong> to <strong>33.75%</strong>.</li>
-          <li>Used 7B-scale value models to guide frozen targets up to Llama-2-70B and Mixtral-8×7B.</li>
-        </ul>
+      <section id="results" class="poster-section">
+        <div class="section-heading"><span>03</span><h2>Key results</h2></div>
+        <div class="metric-grid">
+          <article><span class="metric-value">+7.00</span><strong>Mistral-7B</strong><p>Length-controlled win-rate points on AlpacaEval 2.0.</p></article>
+          <article><span class="metric-value">+8.17</span><strong>Mixtral-8×7B</strong><p>Length-controlled win-rate points on AlpacaEval 2.0.</p></article>
+          <article><span class="metric-value">7B → 70B</span><strong>Cross-scale guidance</strong><p>Small value models guide frozen targets up to 70B and MoE scale.</p></article>
+        </div>
+        <div class="chart-card">
+          <div class="chart-heading"><strong>AlpacaEval 2.0 LC win rate</strong><span>base decoding vs. IVG</span></div>
+          <div class="paired-bars" aria-label="AlpacaEval length-controlled win-rate comparisons">
+            <div class="paired-group"><span class="paired-label">Mistral-7B-Instruct-v0.2</span><div class="bar-row"><span>Base</span><div class="bar-track"><i style="--bar:57.8%"></i></div><strong>19.51</strong></div><div class="bar-row"><span>IVG</span><div class="bar-track"><i class="bar-accent" style="--bar:78.5%"></i></div><strong>26.51</strong></div></div>
+            <div class="paired-group"><span class="paired-label">Mixtral-8×7B-Instruct-v0.1</span><div class="bar-row"><span>Base</span><div class="bar-track"><i style="--bar:75.8%"></i></div><strong>25.58</strong></div><div class="bar-row"><span>IVG</span><div class="bar-track"><i class="bar-accent" style="--bar:100%"></i></div><strong>33.75</strong></div></div>
+          </div>
+        </div>
+        <div class="evidence-grid">
+          <article><strong>Three task families</strong><p>Controlled sentiment, summarization, and instruction following.</p></article>
+          <article><strong>805 prompts</strong><p>AlpacaEval 2.0 evaluation with GPT-4-Turbo judging.</p></article>
+          <article><strong>No target fine-tuning</strong><p>Alignment is applied entirely at inference time.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Paper and code</h2>
-        <p class="item-links"><a href="https://aclanthology.org/2024.findings-emnlp.242/">Paper</a><a href="https://arxiv.org/abs/2409.17819">arXiv</a><a href="https://github.com/AI45Lab/ivg">Code</a></p>
+      <section id="resources" class="poster-section resource-section">
+        <div class="section-heading"><span>04</span><h2>Paper and code</h2></div>
+        <div class="resource-links">
+          <a href="https://aclanthology.org/2024.findings-emnlp.242/"><span>Published paper</span><strong>ACL Anthology ↗</strong></a>
+          <a href="https://arxiv.org/abs/2409.17819"><span>Preprint</span><strong>arXiv ↗</strong></a>
+          <a href="https://github.com/AI45Lab/ivg"><span>Implementation</span><strong>GitHub repository ↗</strong></a>
+        </div>
       </section>
     </article>
 

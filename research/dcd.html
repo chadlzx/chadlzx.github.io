@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <main>
+  <main class="project-shell project-dcd">
     <header class="site-header">
       <a class="site-name" href="../index.html">Zhixuan Liu</a>
       <nav aria-label="Primary navigation">
@@ -23,31 +23,82 @@
     <article class="project-content">
       <header class="project-header">
         <a class="back-link" href="../index.html#research">← Selected research</a>
+        <p class="project-kicker">Efficient decoding · Lossless verification</p>
         <h1>Decoupled Contrastive Decoding via Expert-Aligned Drafting</h1>
+        <p class="project-lead">DCD removes the amateur model from the serial proposal path, then restores the exact contrastive-decoding target during parallel verification.</p>
+        <div class="project-topics" aria-label="Research topics">
+          <span>Contrastive decoding</span><span>Speculative decoding</span><span>EAGLE3</span><span>SGLang</span>
+        </div>
+        <nav class="project-toc" aria-label="On this page">
+          <a href="#question">Question</a><a href="#method">Method</a><a href="#results">Results</a><a href="#resources">Paper &amp; code</a>
+        </nav>
       </header>
 
-      <section>
-        <h2>Research question</h2>
-        <p>Can contrastive decoding retain its target distribution and quality while removing the serial amateur-model proposal pass that limits decoding speed?</p>
+      <section id="question" class="poster-section">
+        <div class="section-heading"><span>01</span><h2>Research question</h2></div>
+        <div class="question-grid">
+          <p class="question-statement">Can contrastive decoding keep its target distribution while eliminating the expensive <em>serial amateur proposal</em>?</p>
+          <aside class="poster-callout"><span class="callout-label">System bottleneck</span><p>The amateur model is useful for contrastive scoring, but a poor choice for the latency-critical proposal path.</p></aside>
+        </div>
+        <div class="idea-grid">
+          <article><span class="idea-index">A</span><h3>Correctness</h3><p>Verification must reproduce the original contrastive distribution—not an approximation to it.</p></article>
+          <article><span class="idea-index">B</span><h3>Latency</h3><p>Proposal latency sits on the critical path and directly limits wall-clock throughput.</p></article>
+          <article><span class="idea-index">C</span><h3>Systems</h3><p>The runtime must coordinate expert, amateur, and drafter states without cache divergence.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Core method</h2>
-        <p>DCD uses a lightweight EAGLE3 drafter aligned with the expert to generate speculative candidates, moving the amateur model from the serial proposal path into parallel verification. Verification still follows the original contrastive distribution, so the proposer changes acceptance and efficiency without changing the decoding target.</p>
+      <section id="method" class="poster-section">
+        <div class="section-heading"><span>02</span><h2>Core method</h2></div>
+        <div class="method-board comparison-board">
+          <div class="board-title"><span>Decoding path</span><strong>Move the amateur off the critical path</strong></div>
+          <div class="flow-comparison">
+            <div class="flow-row flow-baseline">
+              <div class="flow-label"><span>Baseline</span><strong>Speculative CD</strong></div>
+              <article class="flow-node flow-node-warn"><small>Serial proposal</small><strong>Amateur model</strong><span>Draft candidates</span></article>
+              <span class="flow-arrow">→</span>
+              <article class="flow-node"><small>Verification</small><strong>Expert + amateur</strong><span>Contrastive scores</span></article>
+              <span class="flow-arrow">→</span>
+              <article class="flow-node flow-output"><small>Output</small><strong>Accepted tokens</strong><span>Target: CD distribution</span></article>
+            </div>
+            <div class="flow-row flow-ours">
+              <div class="flow-label"><span>DCD</span><strong>Decoupled path</strong></div>
+              <article class="flow-node flow-node-accent"><small>Fast proposal</small><strong>Expert-aligned drafter</strong><span>EAGLE3 candidates</span></article>
+              <span class="flow-arrow">→</span>
+              <article class="flow-node"><small>Parallel verification</small><strong>Expert + amateur</strong><span>Exact CD correction</span></article>
+              <span class="flow-arrow">→</span>
+              <article class="flow-node flow-output"><small>Output</small><strong>Accepted tokens</strong><span>Same CD distribution</span></article>
+            </div>
+          </div>
+          <div class="equation-strip"><span>Verification target</span><code>r<sub>t</sub>(x) ∝ p<sub>t</sub>(x)<sup>1+α</sup> / q<sub>t</sub>(x)<sup>α</sup></code><p>The proposer changes efficiency and acceptance—not the target distribution.</p></div>
+        </div>
+        <div class="implementation-grid">
+          <article><span>Runtime</span><h3>Three-model state</h3><p>Independent KV caches, token pools, batch lifecycle, and draft/verify synchronization.</p></article>
+          <article><span>Diagnosis</span><h3>Proposal error vs. CD signal</h3><p>Cross-alpha, dual-drafter, and stronger-proposer controls isolate why contrastive-aware drafting does not reliably help.</p></article>
+          <article><span>Measurement</span><h3>Latency decomposition</h3><p>Separates proposal, expert verification, and amateur verification instead of relying on accepted length alone.</p></article>
+        </div>
       </section>
 
-      <section>
-        <h2>Key results</h2>
-        <ul>
-          <li>Achieved <strong>1.65–1.95×</strong> average greedy speedups over vanilla contrastive decoding across the main 8B settings.</li>
-          <li>Reduced per-step proposal latency on MMLU from roughly <strong>3.5–7.4 ms</strong> to about <strong>0.6 ms</strong>.</li>
-          <li>Reached <strong>2.02×</strong> and <strong>1.96×</strong> average speedups in the 70B setting at α = 0.1 and 0.5.</li>
-        </ul>
+      <section id="results" class="poster-section">
+        <div class="section-heading"><span>03</span><h2>Key results</h2></div>
+        <div class="metric-grid">
+          <article><span class="metric-value">1.65–1.95×</span><strong>8B speedup</strong><p>Average greedy speedup over vanilla contrastive decoding.</p></article>
+          <article><span class="metric-value">≈0.6 ms</span><strong>DCD proposal</strong><p>Per-step proposal latency on MMLU.</p></article>
+          <article><span class="metric-value">2.02×</span><strong>70B speedup</strong><p>Average speedup at α = 0.1.</p></article>
+        </div>
+        <div class="chart-card">
+          <div class="chart-heading"><strong>Proposal latency on MMLU</strong><span>milliseconds per decoding step</span></div>
+          <div class="bar-comparison latency-bars" aria-label="Proposal latency comparison">
+            <div class="bar-row"><span>SCD / CoS</span><div class="bar-track"><i style="--bar:100%"></i></div><strong>3.5–7.4</strong></div>
+            <div class="bar-row"><span>DCD-EAGLE3</span><div class="bar-track"><i class="bar-accent" style="--bar:8.1%"></i></div><strong>≈0.6</strong></div>
+          </div>
+          <p class="chart-note">DCD can achieve higher wall-clock throughput even when accepted length is not the largest, because it removes the expensive serial proposal pass.</p>
+        </div>
+        <div class="evaluation-strip"><span><strong>4</strong> benchmarks</span><span><strong>200</strong> samples each</span><span><strong>256</strong> max new tokens</span><span><strong>3</strong> run mean</span><span><strong>1× H200</strong> deployment</span></div>
       </section>
 
-      <section>
-        <h2>Paper and code</h2>
-        <p class="availability-note">This work is ongoing.</p>
+      <section id="resources" class="poster-section resource-section">
+        <div class="section-heading"><span>04</span><h2>Paper and code</h2></div>
+        <div class="resource-panel"><div><strong>This work is ongoing.</strong><p>Public manuscript and code links will be added here when available.</p></div><span class="resource-status">Ongoing work</span></div>
       </section>
     </article>
 
