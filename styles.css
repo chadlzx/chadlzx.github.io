@@ -26,10 +26,11 @@ h2 { margin: 0 0 24px; font-family: Georgia, "Times New Roman", serif; font-size
 .selected-item p { max-width: 800px; margin: 8px 0 0; }
 .meta, .section-note, .authors, .venue-line { color: var(--muted); font-size: 14px; }
 .selected-item .meta { margin-top: 3px; }
-.item-links { display: flex; gap: 14px; font-size: 13px; text-transform: lowercase; }
+.item-links { display: flex; flex-wrap: wrap; gap: 5px 14px; font-size: 13px; }
 .section-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
 .section-title-row h2 { margin-bottom: 0; }
-.section-title-row > a { font-size: 14px; white-space: nowrap; }
+.section-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 18px; font-size: 14px; }
+.section-actions a { white-space: nowrap; }
 .section-note { max-width: 720px; margin: 8px 0 28px; }
 .publication-list { list-style: none; padding: 0; margin: 0; }
 .publication-list > li { display: grid; grid-template-columns: 54px 1fr; gap: 16px; padding: 19px 0; border-top: 1px solid #eceff1; }
@@ -38,6 +39,9 @@ h2 { margin: 0 0 24px; font-family: Georgia, "Times New Roman", serif; font-size
 .publication-list p { margin: 3px 0 0; line-height: 1.5; }
 .authors strong { color: var(--text); font-weight: 650; }
 .venue-line em { color: var(--text); }
+.bibtex { margin-top: 8px; font-size: 13px; }
+.bibtex summary { width: fit-content; color: var(--link); cursor: pointer; }
+.bibtex pre { max-width: 100%; margin: 9px 0 0; padding: 13px 15px; overflow-x: auto; border: 1px solid #e2e5e8; border-radius: 3px; background: #f8f9fa; color: #303134; font: 12px/1.55 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; white-space: pre; }
 .timeline { margin: 0; }
 .timeline > div { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 15px 0; border-top: 1px solid #eceff1; }
 .timeline > div:first-child { border-top-color: var(--line); }
@@ -54,5 +58,6 @@ footer { display: flex; justify-content: space-between; padding: 30px 0 48px; bo
   .intro { padding: 50px 0 40px; }
   section { padding: 34px 0; }
   .publication-list > li, .timeline > div { grid-template-columns: 1fr; gap: 3px; }
+  .section-title-row { align-items: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
