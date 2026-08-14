@@ -175,6 +175,7 @@ footer { display: flex; justify-content: space-between; padding: 30px 0 48px; bo
 .resource-panel strong { display: block; font-size: 17px; }
 .resource-panel p { margin-top: 4px; color: var(--muted); font-size: 13px; }
 .resource-status { flex: 0 0 auto; padding: 6px 11px; border: 1px solid var(--project); border-radius: 999px; color: var(--project); font-size: 11px; font-weight: 700; }
+.resource-panel + .resource-links { margin-top: 14px; }
 .resource-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .resource-links a { display: block; padding: 22px; border: 1px solid var(--project-mid); background: var(--project-soft); color: var(--text); }
 .resource-links a:hover { border-color: var(--project); text-decoration: none; }
